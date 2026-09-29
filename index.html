@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campaña briefing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: propuesta en una columna de 1040px. Portada azul marino con chevron de línea, rótulos "— ETIQUETA" como en los briefs de CI, cronograma semanal en grilla de 10 columnas. */
+:root{
+  --bg:#f3f5f9;--surface:#ffffff;--ink:#162851;--muted:#4d5a75;--line:#d6dce9;--tint:#e7eefa;
+  --accent:#0055b8;--hero:#162851;--on-hero:#ffffff;--on-hero-muted:#b9c5e0;
+  --th-bg:#0055b8;--th-fg:#ffffff;
+  --c-prep:#c6cad3;--c-teaser:#f9ab3a;--c-launch:#0055b8;--c-cascade:#8db3e8;--c-1on1:#225f58;--c-remind:#410c5c;--c-measure:#819e49;
+  --dark-text:#162851;--light-text:#ffffff;
+  --f-display:'Outfit','Trebuchet MS',system-ui,sans-serif;
+  --f-body:'Trebuchet MS','Segoe UI',system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1428;--surface:#131f40;--ink:#e9eefa;--muted:#a4b0cc;--line:#2a3b6b;--tint:#1a2b57;
+    --accent:#6ea6ee;--hero:#0055b8;--on-hero-muted:#d3e0f7;--th-bg:#1c4f9f;
+    --c-prep:#98a1b6;--c-launch:#1f6fd8;--c-cascade:#6f97d4;--c-1on1:#2b7c71;--c-remind:#7b3ba3;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1428;--surface:#131f40;--ink:#e9eefa;--muted:#a4b0cc;--line:#2a3b6b;--tint:#1a2b57;
+  --accent:#6ea6ee;--hero:#0055b8;--on-hero-muted:#d3e0f7;--th-bg:#1c4f9f;
+  --c-prep:#98a1b6;--c-launch:#1f6fd8;--c-cascade:#6f97d4;--c-1on1:#2b7c71;--c-remind:#7b3ba3;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.12}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.wrap{max-width:1040px;margin-inline:auto;padding-block:20px 72px;display:flex;flex-direction:column;gap:64px}
+section{display:flex;flex-direction:column;gap:20px;min-width:0}
+.eyebrow{font-family:var(--f-display);font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:10px}
+h2{font-size:clamp(26px,4vw,36px);font-weight:700;letter-spacing:-.01em}
+.lead{color:var(--muted);max-width:68ch}
+h3{font-size:19px;font-weight:600}
+.sub-h{font-family:var(--f-display);font-weight:600;font-size:19px;margin-top:8px}
+
+/* Portada */
+.hero{position:relative;overflow:hidden;background:var(--hero);color:var(--on-hero);border-radius:20px;padding:clamp(28px,5vw,56px);display:flex;flex-direction:column;gap:28px}
+.iso{width:64px;height:auto;color:#fff;--hex-in:var(--hero);display:block}
+.hero .eyebrow{color:var(--on-hero-muted)}
+.hero h1{font-size:clamp(40px,8vw,76px);font-weight:700;letter-spacing:-.015em;display:flex;gap:.28em;align-items:flex-start;max-width:11ch}
+.hero h1::before{content:"";flex:none;width:.32em;height:.68em;margin-top:.13em;background:currentColor;clip-path:polygon(0 0,55% 0,100% 50%,55% 100%,0 100%)}
+.hero .sub{font-size:clamp(17px,2.2vw,21px);max-width:46ch;color:var(--on-hero)}
+.hero .meta{font-family:var(--f-display);font-size:14px;letter-spacing:.04em;color:var(--on-hero-muted)}
+.chev{position:absolute;right:0;top:50%;width:min(46%,420px);height:auto;transform:translateY(-50%);pointer-events:none;opacity:.55}
+.hero>*:not(.chev){position:relative;z-index:1}
+
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px 32px;margin:0;padding:4px 4px 0}
+.facts dt{font-size:14px;color:var(--muted)}
+.facts dd{margin:2px 0 0;font-family:var(--f-display);font-weight:700;font-size:26px;color:var(--accent);font-variant-numeric:tabular-nums}
+
+/* Mini brief */
+.qa{border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden}
+.qa-row{display:grid;grid-template-columns:44px minmax(0,230px) minmax(0,1fr);gap:8px 16px;padding:16px 20px;border-top:1px solid var(--line);align-items:start}
+.qa-row:first-child{border-top:0}
+.num{width:32px;height:32px;border-radius:8px;background:var(--tint);color:var(--accent);font-family:var(--f-display);font-weight:700;display:grid;place-items:center;font-size:15px}
+.qa-q{font-family:var(--f-display);font-weight:600;font-size:16px;padding-top:4px}
+.qa-a{padding-top:3px}
+.qa-a b{font-weight:700}
+
+/* Flujo */
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}
+.flow li{display:flex;flex-direction:column;gap:6px;min-width:0}
+.flow strong{font-family:var(--f-display);font-weight:600;margin-top:4px}
+.flow .who{font-size:13px;color:var(--accent);font-family:var(--f-display);font-weight:600;letter-spacing:.03em}
+.flow .t{color:var(--muted);font-size:14.5px;line-height:1.45}
+
+/* Cronograma */
+.gantt-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.gantt-inner{min-width:880px;padding-block:6px}
+.g-row{position:relative;display:grid;grid-template-columns:160px repeat(10,minmax(0,1fr));align-items:center;min-height:54px}
+.g-row::before{content:"";grid-column:2/12;grid-row:1;align-self:stretch;background-image:linear-gradient(to right,var(--line) 1px,transparent 1px);background-size:10% 100%}
+.g-row>*{grid-row:1}
+.g-head{min-height:40px;font-family:var(--f-display);font-size:12.5px;color:var(--muted);letter-spacing:.03em;border-bottom:1px solid var(--line)}
+.g-head span{padding-left:8px;position:relative;font-variant-numeric:tabular-nums}
+.g-label{grid-column:1;padding-inline:20px 8px;font-family:var(--f-display);font-weight:600;font-size:15px}
+.bar,.chip{background:var(--bg-c);color:var(--fg-c)}
+.bar{position:relative;z-index:1;margin:6px 3px;padding:6px 8px;border-radius:8px;font-family:var(--f-display);font-size:12px;font-weight:600;line-height:1.2;min-width:0;font-variant-numeric:tabular-nums}
+.c-prep{--bg-c:var(--c-prep);--fg-c:var(--dark-text)}
+.c-teaser{--bg-c:var(--c-teaser);--fg-c:var(--dark-text)}
+.c-launch{--bg-c:var(--c-launch);--fg-c:var(--light-text)}
+.c-cascade{--bg-c:var(--c-cascade);--fg-c:var(--dark-text)}
+.c-1on1{--bg-c:var(--c-1on1);--fg-c:var(--light-text)}
+.c-remind{--bg-c:var(--c-remind);--fg-c:var(--light-text)}
+.c-measure{--bg-c:var(--c-measure);--fg-c:var(--dark-text)}
+.hint{font-size:14px;color:var(--muted);max-width:72ch}
+
+/* Fases */
+.phases{border-top:1px solid var(--line)}
+.phase{display:grid;grid-template-columns:190px minmax(0,1fr);gap:12px 32px;padding-block:24px;border-bottom:1px solid var(--line)}
+.chip{display:inline-block;align-self:start;justify-self:start;padding:6px 12px;border-radius:8px;font-family:var(--f-display);font-weight:600;font-size:13.5px;font-variant-numeric:tabular-nums}
+.phase h3{margin-bottom:8px}
+.phase .table-scroll{margin-top:14px}
+.dots li{position:relative;padding-left:18px;margin-top:6px}
+.dots li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;background:var(--accent);clip-path:polygon(0 0,60% 0,100% 50%,60% 100%,0 100%)}
+.dots b{font-weight:700}
+
+/* Tablas */
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:15px}
+th{background:var(--th-bg);color:var(--th-fg);text-align:left;font-family:var(--f-display);font-weight:600;font-size:14px;padding:12px 16px;letter-spacing:.02em}
+td{padding:13px 16px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:first-child td{border-top:0}
+td:first-child{font-weight:700;font-family:var(--f-display)}
+.tag{display:inline-block;padding:2px 9px;border-radius:6px;background:var(--tint);color:var(--accent);font-family:var(--f-display);font-weight:600;font-size:13px;white-space:nowrap}
+.note{background:var(--tint);border-radius:12px;padding:14px 18px;font-size:15px;max-width:72ch}
+
+/* 1:1 */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px 28px}
+.steps li{display:flex;flex-direction:column;gap:8px;min-width:0}
+.steps .min{font-family:var(--f-display);font-weight:700;font-size:13px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+.steps strong{font-family:var(--f-display);font-weight:600}
+.steps .t{color:var(--muted);font-size:14.5px;line-height:1.45}
+
+/* Cierre */
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px 48px}
+.duo>div{min-width:0}
+.risk{padding-block:14px;border-top:1px solid var(--line)}
+.risk:first-of-type{border-top:0}
+.risk b{font-family:var(--f-display);font-weight:600;display:block}
+.risk span{color:var(--muted)}
+footer{color:var(--muted);font-size:13.5px;border-top:1px solid var(--line);padding-top:20px}
+
+@media (max-width:640px){
+  .qa-row{grid-template-columns:44px minmax(0,1fr)}
+  .qa-a{grid-column:1/-1;padding-top:0}
+  .phase{grid-template-columns:minmax(0,1fr)}
+  .wrap{gap:52px}
+}
+body{margin:0;padding-block:8px}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="iso" viewBox="0 0 120 64">
+    <polygon points="26,0 94,0 120,32 94,64 26,64 0,32" fill="currentColor"/>
+    <polygon points="35,14 85,14 101,32 85,50 35,50 19,32" fill="none" style="stroke:var(--hex-in)" stroke-width="6"/>
+  </symbol>
+  <symbol id="chev" viewBox="0 0 400 200">
+    <path d="M0 100 L100 0 H400 M0 100 L100 200 H400" fill="none" stroke="#fff" stroke-width="1.5"/>
+  </symbol>
+</svg>
+
+<main class="wrap">
+
+  <header class="hero">
+    <svg class="chev" viewBox="0 0 400 200" aria-hidden="true"><use href="#chev"/></svg>
+    <svg class="iso" viewBox="0 0 120 64" aria-hidden="true"><use href="#iso"/></svg>
+    <div class="eyebrow">Propuesta de campaña de difusión</div>
+    <h1>Campaña briefing</h1>
+    <p class="sub">Cómo instalar el mini brief como la vía de ingreso de las comunicaciones no planificadas al Área CI.</p>
+    <p class="meta">Comunicaciones Internas · Oxiquim · Versión para revisión, 29 sep 2026</p>
+  </header>
+
+  <dl class="facts" aria-label="Resumen de fechas">
+    <div><dt>Lanzamiento</dt><dd>Mar 13 oct</dd></div>
+    <div><dt>Reuniones 1:1 con grupos clave</dt><dd>4 semanas</dd></div>
+    <div><dt>Recordatorios segmentados</dt><dd>4 olas</dd></div>
+    <div><dt>Balance de los primeros 30 días</dt><dd>Vie 13 nov</dd></div>
+  </dl>
+
+  <section id="minibrief">
+    <div class="eyebrow">La campaña en formato mini brief</div>
+    <h2>Esta propuesta, respondida como un mini brief</h2>
+    <p class="lead">Las ocho respuestas resumen la campaña con las mismas preguntas que recibirán las áreas solicitantes.</p>
+    <div class="qa">
+      <div class="qa-row"><span class="num">1</span><div class="qa-q">¿Qué necesitas comunicar?</div><div class="qa-a"><b>Objetivo:</b> que las comunicaciones no planificadas entren por el mini brief como brief de solicitud (sección 3.3.1 del procedimiento). <b>Mensaje clave:</b> «Pídelo en 8 preguntas y tu pieza parte con fecha y canal confirmados». <b>Contenido:</b> qué entra por brief, qué ocurre después de enviarlo y los plazos de cada nivel de urgencia.</div></div>
+      <div class="qa-row"><span class="num">2</span><div class="qa-q">¿Qué piezas y en qué formato?</div><div class="qa-a">Correos, nota y banner en Oxinet, láminas para pantallas internas, afiche para diario mural, mensaje para WhatsApp, guía de una página para los 1:1 y un video corto para Oxiflix.</div></div>
+      <div class="qa-row"><span class="num">3</span><div class="qa-q">¿Qué quieres que pase?</div><div class="qa-a">Que el área solicitante complete el mini brief al momento de requerir la comunicación y deje de escribir por WhatsApp, pasillo o correo sin contexto.</div></div>
+      <div class="qa-row"><span class="num">4</span><div class="qa-q">¿Cuál es la audiencia principal?</div><div class="qa-a">Gerentes, subgerentes y jefaturas de las divisiones Resinas, Terminales Marítimos, Químicos y Minería. Se suman los corresponsales internos y generalistas de Personas de las seis localidades, y los supervisores de plantas y terminales.</div></div>
+      <div class="qa-row"><span class="num">5</span><div class="qa-q">¿Qué tono te hace sentido?</div><div class="qa-a">Cercano y motivacional, con frases cortas y sin lenguaje de procesos.</div></div>
+      <div class="qa-row"><span class="num">6</span><div class="qa-q">¿En qué canales?</div><div class="qa-a">Correo, Oxinet, pantallas internas, diario mural, WhatsApp, Oxiflix y jefaturas y supervisores, junto con reuniones 1:1 presenciales o por videollamada.</div></div>
+      <div class="qa-row"><span class="num">7</span><div class="qa-q">¿Para cuándo lo necesitas?</div><div class="qa-a">Lanzamiento el martes 13 de octubre, con preparación hasta el viernes 9. Urgencia <b>Prioritario</b> (3 a 5 días hábiles, con coordinación anticipada del Área CI).</div></div>
+      <div class="qa-row"><span class="num">8</span><div class="qa-q">¿Tienes material?</div><div class="qa-a"><b>Sí:</b> procedimiento GP-CI-1 con su anexo de diagrama, brief largo y mini brief. <b>Falta:</b> enlace final del formulario, registro de briefs recibidos, casos reales para los recordatorios y lista de corresponsales por localidad.</div></div>
+    </div>
+  </section>
+
+  <section id="partida">
+    <div class="eyebrow">Punto de partida</div>
+    <h2>El brief cubre lo que no está en el Plan anual</h2>
+    <p class="lead">Las comunicaciones del Plan de Comunicaciones Internas anual entran directo a la etapa de Evaluación. Las demás parten con el brief de solicitud, que muchas veces llega hoy por WhatsApp, pasillo o correo sin contexto. La campaña apunta a este segundo grupo.</p>
+    <p class="lead">El procedimiento rige para Oxiquim S.A., Dilox S.A. y Terminal Marítimo Oxiquim Mejillones S.A., en Quilicura, Santa María, Escuadrón, Quintero, Mejillones y Puerto Montt. A cambio del brief, el Área CI confirma la fecha de entrega y el canal, y deja el pedido registrado con número correlativo.</p>
+
+    <div class="sub-h">Qué ocurre después de enviar el brief</div>
+    <ol class="flow">
+      <li><span class="num">1</span><strong>Solicitud</strong><span class="who">Área solicitante</span><span class="t">Completa el brief y lo envía al Área CI al momento de requerir la comunicación.</span></li>
+      <li><span class="num">2</span><strong>Recepción y registro</strong><span class="who">Área CI</span><span class="t">Asigna número correlativo, fecha, canal, audiencia y responsable.</span></li>
+      <li><span class="num">3</span><strong>Evaluación</strong><span class="who">Área CI</span><span class="t">Revisa viabilidad, plazo real y prioridad según la urgencia declarada. Gerencia General valida las estratégicas en 24 h hábiles.</span></li>
+      <li><span class="num">4</span><strong>Confirmación</strong><span class="who">Área CI</span><span class="t">Confirma fecha de entrega estimada y canal propuesto, en paralelo a la evaluación.</span></li>
+      <li><span class="num">5</span><strong>Producción</strong><span class="who">Área CI</span><span class="t">Desarrolla la pieza según el brief y el canal definido.</span></li>
+      <li><span class="num">6</span><strong>Entrega y cierre</strong><span class="who">Área CI</span><span class="t">Entrega la pieza por el canal definido y registra el resultado en los indicadores.</span></li>
+    </ol>
+
+    <div class="sub-h">Niveles de urgencia</div>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Niveles de urgencia">
+      <table>
+        <thead><tr><th>Nivel</th><th>Plazo</th><th>Criterio</th></tr></thead>
+        <tbody>
+          <tr><td>Normal</td><td>Más de 5 días hábiles</td><td>Producción planificada, sin urgencia operacional.</td></tr>
+          <tr><td>Prioritario</td><td>3 a 5 días hábiles</td><td>Requiere coordinación anticipada con el Área CI.</td></tr>
+          <tr><td>Urgente</td><td>1 a 2 días hábiles</td><td>Implica reprogramar otras entregas y requiere justificación.</td></tr>
+          <tr><td>Crítico</td><td>Mismo día o 24 h</td><td>Solo para crisis o comunicados de seguridad.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="cronograma">
+    <div class="eyebrow">Cronograma</div>
+    <h2>Diez semanas, del 28 de septiembre al 4 de diciembre</h2>
+    <p class="lead">Fechas propuestas para contrastar con el calendario de CI y de las áreas. Cada columna es una semana, con el lunes como fecha.</p>
+    <div class="gantt-scroll" tabindex="0" role="region" aria-label="Cronograma semanal de la campaña">
+      <div class="gantt-inner">
+        <div class="g-row g-head"><span></span><span>28 sep</span><span>5 oct</span><span>12 oct</span><span>19 oct</span><span>26 oct</span><span>2 nov</span><span>9 nov</span><span>16 nov</span><span>23 nov</span><span>30 nov</span></div>
+        <div class="g-row"><span class="g-label">Preparación</span><div class="bar c-prep" style="grid-column:2/4">28 sep – 9 oct</div></div>
+        <div class="g-row"><span class="g-label">Aviso previo</span><div class="bar c-teaser" style="grid-column:3/4">7 – 9 oct</div></div>
+        <div class="g-row"><span class="g-label">Lanzamiento</span><div class="bar c-launch" style="grid-column:4/5">Mar 13 oct</div></div>
+        <div class="g-row"><span class="g-label">Cascada jerárquica</span><div class="bar c-cascade" style="grid-column:4/6">13 – 21 oct</div></div>
+        <div class="g-row"><span class="g-label">Reuniones 1:1</span><div class="bar c-1on1" style="grid-column:4/8">Cuatro olas · 13 oct – 6 nov</div></div>
+        <div class="g-row"><span class="g-label">Recordatorios</span>
+          <div class="bar c-remind" style="grid-column:5/6">R1 · 22 oct</div>
+          <div class="bar c-remind" style="grid-column:7/8">R2 · 3 nov</div>
+          <div class="bar c-remind" style="grid-column:9/10">R3 · 17 nov</div>
+          <div class="bar c-remind" style="grid-column:11/12">R4 · 1 dic</div>
+        </div>
+        <div class="g-row"><span class="g-label">Medición y ajuste</span>
+          <div class="bar c-measure" style="grid-column:4/8">Seguimiento semanal</div>
+          <div class="bar c-measure" style="grid-column:8/9">Balance 13 nov</div>
+          <div class="bar c-measure" style="grid-column:10/11">Cierre 27 nov</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fases">
+    <div class="eyebrow">Fases</div>
+    <h2>Qué pasa en cada fase</h2>
+    <div class="phases">
+      <article class="phase">
+        <div><span class="chip c-prep">28 sep – 9 oct</span></div>
+        <div>
+          <h3>Preparación</h3>
+          <ul class="dots">
+            <li>Renumerar el mini brief de 1 a 8 (hoy salta de la 4 a la 7 y de la 8 a la 10) y sumar la identificación de quien solicita: nombre, área, fecha y fecha límite, como en el campo 01 del brief de solicitud.</li>
+            <li>Confirmar con la Gerencia de Personas que el mini brief se reconoce como forma del brief de solicitud (3.3.1) y qué plazo de Recepción y registro se comunica.</li>
+            <li>Dejar un enlace único que asigne el número correlativo, y probarlo con 2 solicitudes reales.</li>
+            <li>Segmentar las audiencias por división, localidad y nivel jerárquico (secciones 2 y 3.4), y elegir el canal según si la persona tiene correo corporativo.</li>
+            <li>Producir las piezas de la tabla de piezas y agendar los 1:1 de las olas 1 y 2.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="phase">
+        <div><span class="chip c-teaser">7 – 9 oct</span></div>
+        <div>
+          <h3>Aviso previo</h3>
+          <ul class="dots">
+            <li>Correo breve a gerentes y subgerentes con la fecha del lanzamiento, para que lo conozcan antes que el resto.</li>
+            <li>Láminas en pantallas internas y afiche en diario mural que anuncian el cambio del 13 de octubre, sin detallar el procedimiento.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="phase">
+        <div><span class="chip c-launch">Martes 13 oct</span></div>
+        <div>
+          <h3>Lanzamiento</h3>
+          <ul class="dots">
+            <li>Correo de lanzamiento a las áreas solicitantes con correo corporativo, firmado por la Gerencia de Personas.</li>
+            <li>Nota y banner en la portada de Oxinet, que se mantienen hasta el balance.</li>
+            <li>Láminas en pantallas internas y afiche en diario mural para las localidades y los colaboradores sin correo.</li>
+            <li>Mensaje de WhatsApp con el enlace a los grupos definidos de jefaturas, corresponsales y supervisores, según la política de redes (3.6).</li>
+            <li>Primeras reuniones 1:1 ese mismo día.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="phase">
+        <div><span class="chip c-cascade">13 – 21 oct</span></div>
+        <div>
+          <h3>Cascada jerárquica</h3>
+          <p class="hint">El lanzamiento baja por la línea de mando con las confirmaciones que el procedimiento pide a cada rol (7.1). Las fechas cuentan 48 h hábiles desde que cada nivel recibe el mensaje.</p>
+          <div class="table-scroll" tabindex="0" role="region" aria-label="Cascada jerárquica">
+            <table>
+              <thead><tr><th>Nivel</th><th>Acción</th><th>Fecha límite</th><th>Si no se cumple</th></tr></thead>
+              <tbody>
+                <tr><td>Gerentes</td><td>Confirman la difusión al Área CI.</td><td>Jue 15 oct</td><td>El Área CI reporta a la Gerencia de Personas.</td></tr>
+                <tr><td>Subgerentes</td><td>Confirman la difusión al Área CI.</td><td>Lun 19 oct</td><td>Se notifica al gerente del área.</td></tr>
+                <tr><td>Jefaturas</td><td>Registran la reunión o comunicación formal con su equipo.</td><td>Mié 21 oct</td><td>Se notifica al subgerente.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="phase">
+        <div><span class="chip c-1on1">13 oct – 6 nov</span></div>
+        <div>
+          <h3>Reuniones 1:1 con grupos clave</h3>
+          <ul class="dots">
+            <li>Cuatro olas, una por semana, según la tabla de grupos de la sección siguiente.</li>
+            <li>Cada reunión termina con un brief real del área ya enviado.</li>
+            <li>Durante las primeras tres semanas se acepta un pedido informal si el brief se completa en la misma conversación.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="phase">
+        <div><span class="chip c-remind">4 olas</span></div>
+        <div>
+          <h3>Recordatorios</h3>
+          <ul class="dots">
+            <li><b>R1 · jue 22 oct.</b> Primera semana de uso, con el enlace y la cantidad de solicitudes ya ingresadas. Correo y pantallas internas.</li>
+            <li><b>R2 · mar 3 nov.</b> Un brief bien completado y la pieza que resultó de él, con permiso del área. Oxinet, WhatsApp y el video corto en Oxiflix.</li>
+            <li><b>R3 · mar 17 nov.</b> Adopción y tiempos del mes, con reconocimiento a las áreas que ya lo usan. Correo.</li>
+            <li><b>R4 · mar 1 dic.</b> Plazos de fin de año por nivel de urgencia para las piezas de diciembre y enero. Correo y pantallas internas.</li>
+            <li>Cada ola se segmenta por división y localidad, para evitar sobrecarga de información (sección 2).</li>
+            <li>Entre olas, cada pedido que llegue por otra vía recibe una respuesta con el enlace y la oferta de completarlo juntos.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="phase">
+        <div><span class="chip c-measure">Desde el 13 oct</span></div>
+        <div>
+          <h3>Medición y ajuste</h3>
+          <ul class="dots">
+            <li>Antes del lanzamiento se levanta la línea base con el registro de briefs y la matriz de seguimiento en OneDrive (7.2): cuántas comunicaciones no planificadas llegan hoy y por qué vía.</li>
+            <li>Seguimiento semanal con esa matriz.</li>
+            <li>Balance el viernes 13 de noviembre, que alimenta el reporte mensual de KPIs del Área CI a la Gerencia de Personas.</li>
+            <li>Cierre el 27 de noviembre, con informe y decisión sobre terminar el período de transición.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="uno-a-uno">
+    <div class="eyebrow">Reuniones 1:1</div>
+    <h2>Cuatro olas de reuniones, del 13 de octubre al 6 de noviembre</h2>
+    <p class="lead">Los grupos siguen los roles y la segmentación del procedimiento, y se ajustan con el registro de briefs. Las reuniones aplican los principios de conversación y colaboración (3.1), con las áreas como coproductoras.</p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Grupos clave para reuniones 1:1">
+      <table>
+        <thead><tr><th>Grupo</th><th>Por qué es clave</th><th>Qué necesitamos de ellos</th><th>Ola</th></tr></thead>
+        <tbody>
+          <tr><td>Gerencia General y Gerencia de Personas</td><td>Inspiran la estrategia y validan las comunicaciones estratégicas en 24 h hábiles.</td><td>Respaldar el brief como vía de ingreso de lo no planificado.</td><td><span class="tag">1 · 13–16 oct</span></td></tr>
+          <tr><td>Gerentes de división</td><td>Conectan a sus equipos con los objetivos y aseguran la bajada de información.</td><td>Confirmar la difusión al Área CI en 48 h hábiles.</td><td><span class="tag">1 · 13–16 oct</span></td></tr>
+          <tr><td>Subgerentes</td><td>Alinean expectativas y comunican información relevante a sus equipos.</td><td>Confirmar la difusión y detectar pedidos que siguen llegando por otras vías.</td><td><span class="tag">2 · 19–23 oct</span></td></tr>
+          <tr><td>Jefaturas</td><td>Aclaran información, abren espacios de escucha y son el canal prioritario para lo urgente.</td><td>Registrar la reunión con su equipo y usar los niveles de urgencia con criterio.</td><td><span class="tag">2 · 19–23 oct</span></td></tr>
+          <tr><td>Corresponsales internos y generalistas de Personas</td><td>Red piloto 2026 con presencia en cada localidad.</td><td>Llevar la campaña a su localidad y avisar al Área CI de los pedidos informales.</td><td><span class="tag">3 · 26–30 oct</span></td></tr>
+          <tr><td>Supervisores de plantas y terminales</td><td>Llegan a los colaboradores sin correo corporativo.</td><td>Reforzar el mensaje en pantallas internas, diario mural y reuniones de turno.</td><td><span class="tag">3 · 26–30 oct</span></td></tr>
+          <tr><td>Resto de áreas solicitantes</td><td>Completan la cobertura según el registro de briefs.</td><td>Usar el brief en su próxima solicitud.</td><td><span class="tag">4 · 2–6 nov</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="hint">Las reuniones con las localidades de Quintero, Mejillones y Puerto Montt pueden hacerse por videollamada.</p>
+    <div class="sub-h">Una reunión de 25 minutos</div>
+    <ol class="steps">
+      <li><span class="min">3 min</span><strong>Contexto</strong><span class="t">Qué entra por brief y qué va al Plan anual.</span></li>
+      <li><span class="min">10 min</span><strong>Recorrido</strong><span class="t">Se llena el mini brief con una necesidad real del área.</span></li>
+      <li><span class="min">5 min</span><strong>Urgencia y plazos</strong><span class="t">Los cuatro niveles del procedimiento y sus criterios.</span></li>
+      <li><span class="min">7 min</span><strong>Dudas y acuerdos</strong><span class="t">A quién escribir y qué necesidades previsibles de 2027 puede aportar el área.</span></li>
+    </ol>
+    <p class="note">El Área CI elabora el Plan anual en el último trimestre (3.2). Cada reunión puede cerrar con las necesidades previsibles del área para 2027, de modo que lleguen al plan con tiempo.</p>
+  </section>
+
+  <section id="piezas">
+    <div class="eyebrow">Piezas y canales</div>
+    <h2>Piezas por canal oficial</h2>
+    <p class="lead">La segmentación decide el canal. Los colaboradores sin correo corporativo reciben la campaña por pantallas internas, diario mural y sus supervisores.</p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Piezas y canales">
+      <table>
+        <thead><tr><th>Pieza</th><th>Canal oficial</th><th>Fase</th><th>Audiencia</th></tr></thead>
+        <tbody>
+          <tr><td>Correo previo</td><td>Cuentas corporativas de correo</td><td>Aviso previo</td><td>Gerentes y subgerentes</td></tr>
+          <tr><td>Correo de lanzamiento</td><td>Cuentas corporativas de correo</td><td>Lanzamiento</td><td>Áreas solicitantes con correo</td></tr>
+          <tr><td>Nota y banner</td><td>Oxinet</td><td>Lanzamiento</td><td>Toda la organización</td></tr>
+          <tr><td>Láminas de pantalla</td><td>Pantallas internas</td><td>Aviso previo y lanzamiento</td><td>Localidades y colaboradores sin correo</td></tr>
+          <tr><td>Afiche</td><td>Diario mural</td><td>Aviso previo y lanzamiento</td><td>Localidades y colaboradores sin correo</td></tr>
+          <tr><td>Mensaje con enlace</td><td>WhatsApp</td><td>Lanzamiento y 1:1</td><td>Grupos definidos de jefaturas, corresponsales y supervisores</td></tr>
+          <tr><td>Mensaje en equipos</td><td>Jefaturas y supervisores</td><td>Cascada jerárquica</td><td>Equipos y localidades</td></tr>
+          <tr><td>Guía de una página</td><td>Reunión 1:1, en PDF</td><td>Reuniones 1:1</td><td>Participantes de cada reunión</td></tr>
+          <tr><td>Video corto</td><td>Oxiflix y Oxinet</td><td>R2</td><td>Toda la organización</td></tr>
+          <tr><td>Piezas de recordatorio</td><td>Correo, pantallas internas, diario mural y WhatsApp</td><td>R1 a R4</td><td>Según la segmentación de cada ola</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="hint">Las redes sociales internas se usan con grupos definidos y bajo la política de redes (3.6).</p>
+  </section>
+
+  <section id="medicion">
+    <div class="eyebrow">Medición</div>
+    <h2>Cómo sabremos si funcionó</h2>
+    <p class="lead">Hoy el Área CI mide producción, y los indicadores de eficiencia y efectividad del procedimiento aún no tienen herramienta de medición (7.3). La campaña parte con el registro de briefs y la matriz de seguimiento. Las metas marcadas como sugeridas son propuesta de esta campaña.</p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Indicadores de la campaña">
+      <table>
+        <thead><tr><th>Indicador</th><th>Qué mide</th><th>Meta</th><th>Fuente</th></tr></thead>
+        <tbody>
+          <tr><td>Adopción</td><td>Comunicaciones no planificadas ingresadas por brief sobre el total de solicitudes no planificadas.</td><td>70% al 6 nov y 90% al 27 nov (sugerida)</td><td>Briefs registrados con número correlativo</td></tr>
+          <tr><td>Cascada</td><td>Gerentes, subgerentes y jefaturas que confirman la difusión en 48 h hábiles.</td><td>Plazo del procedimiento (7.1)</td><td>Confirmaciones al Área CI</td></tr>
+          <tr><td>Cobertura 1:1</td><td>Grupos priorizados con reunión realizada.</td><td>100% al 6 nov (sugerida)</td><td>Agenda del Área CI</td></tr>
+          <tr><td>EO2 · Tiempo de producción</td><td>Días desde la solicitud hasta la publicación.</td><td>5 días (procedimiento)</td><td>Matriz de seguimiento</td></tr>
+          <tr><td>EC1 · Comprensión</td><td>Encuesta posterior a la comunicación, en escala de 1 a 5.</td><td>4,0 / 5 (procedimiento)</td><td>Encuesta trimestral</td></tr>
+          <tr><td>EC2 · Uso de canales oficiales</td><td>Interacciones sobre el número de colaboradores.</td><td>70% (procedimiento)</td><td>Por definir con la herramienta de medición</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="cierre">
+    <div class="duo">
+      <div>
+        <div class="eyebrow">Riesgos</div>
+        <h2 style="margin-block:12px 8px">Qué puede frenar la adopción</h2>
+        <div class="risk"><b>Los pedidos siguen llegando por WhatsApp, pasillo o correo sin contexto</b><span>Respuesta con el enlace y la oferta de completar el brief juntos, con una transición de tres semanas.</span></div>
+        <div class="risk"><b>Todo llega como Urgente o Crítico</b><span>Los niveles y plazos del procedimiento quedan visibles junto al formulario. Urgente exige justificación y Crítico se reserva para crisis y comunicados de seguridad.</span></div>
+        <div class="risk"><b>Confirmaciones de difusión atrasadas</b><span>Se activa el escalamiento del procedimiento para cada nivel (7.1).</span></div>
+        <div class="risk"><b>Colaboradores sin correo corporativo</b><span>Pantallas internas, diario mural y supervisores como canales principales.</span></div>
+        <div class="risk"><b>Sobrecarga de mensajes</b><span>Máximo cuatro recordatorios, segmentados por división y localidad.</span></div>
+      </div>
+      <div>
+        <div class="eyebrow">Por definir</div>
+        <h2 style="margin-block:12px 8px">Antes del viernes 9 de octubre</h2>
+        <ul class="dots">
+          <li>Plazo de Recepción y registro. El procedimiento indica dos días hábiles y el anexo del diagrama indica el mismo día hábil, y la campaña necesita comunicar uno solo.</li>
+          <li>Confirmar el martes 13 de octubre como fecha de lanzamiento y a la Gerencia de Personas como firmante, con o sin saludo de Gerencia General.</li>
+          <li>Elegir la herramienta del formulario y dejar el enlace final con número correlativo.</li>
+          <li>Reconocer el mini brief en el procedimiento (3.3.1), que hoy describe un brief de nueve campos.</li>
+          <li>Definir quiénes son los corresponsales internos en cada localidad, ya que el rol no está formalmente asignado.</li>
+          <li>Obtener el registro de briefs para cerrar la lista de grupos y reunir 2 o 3 casos reales para R2.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>Propuesta basada en el Procedimiento de Comunicaciones Internas GP-CI-1 (versión 2, 03-03-2026), su anexo GP-CI-1-ANEXO-01 y el mini brief de requerimiento del Área CI. Fechas y metas sujetas a revisión.</footer>
+</main>
+
+</body>
+</html>
